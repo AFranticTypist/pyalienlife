@@ -151,42 +151,42 @@ local current_bioport_to_scan = 0
 
 local function homeless_scan()
 	if not storage.biofluid_networks then goto continue end
-		if not storage.biofluid_bioports then goto continue end
+	if not storage.biofluid_bioports then goto continue end
 
-    	local names = { "gobachov", "huzu", "chorkok" }
-		local localports = nil
+    local names = { "gobachov", "huzu", "chorkok" }
+	local localports = nil
 	
-		-- we scan two areas:  a random chunk and the next bioport
-		local areas = {}
+	-- we scan two areas:  a random chunk and the next bioport
+	local areas = {}
 	
-		-- random chunk
-		local chunk = game.surfaces[1].get_random_chunk()
-		if not chunk then goto continue end
-		table.insert(areas, { {chunk.x * 32, chunk.y * 32}, {(chunk.x + 2) * 32, (chunk.y + 2) * 32} })
+	-- random chunk
+	local chunk = game.surfaces[1].get_random_chunk()
+	if not chunk then goto continue end
+	table.insert(areas, { {chunk.x * 32, chunk.y * 32}, {(chunk.x + 2) * 32, (chunk.y + 2) * 32} })
 
-		local next_bioport_data = nil
-		local count = 0	
-		current_bioport_to_scan = current_bioport_to_scan + 1
+	local next_bioport_data = nil
+	local count = 0	
+	current_bioport_to_scan = current_bioport_to_scan + 1
 
-		for unit_number, bioport_data in pairs(storage.biofluid_bioports) do
-			count = count + 1
+	for unit_number, bioport_data in pairs(storage.biofluid_bioports) do
+		count = count + 1
 		
-			if (count == current_bioport_to_scan) then 
-				next_bioport_data = bioport_data
-				break;
-			end	
-		end
+		if (count == current_bioport_to_scan) then 
+			next_bioport_data = bioport_data
+			break;
+		end	
+	end
 	
-		if (next_bioport_data ~= nil) and (next_bioport_data.entity ~= nil) then
-			-- bioport chunk
-			table.insert(areas, { {next_bioport_data.entity.position.x - 32, next_bioport_data.entity.position.y - 32}, {next_bioport_data.entity.position.x + 32, next_bioport_data.entity.position.y + 32} })	
-		else 
-			-- start at the beginning of the loop
-			current_bioport_to_scan = 0
-		end
-	
-		for _, area in pairs(areas) do
-			for _, name in pairs(names) do
+	if (next_bioport_data ~= nil) and (next_bioport_data.entity ~= nil) then
+		-- bioport chunk
+		table.insert(areas, { {next_bioport_data.entity.position.x - 32, next_bioport_data.entity.position.y - 32}, {next_bioport_data.entity.position.x + 32, next_bioport_data.entity.position.y + 32} })	
+	else 
+		-- start at the beginning of the loop
+		current_bioport_to_scan = 0
+	end
+
+	for _, area in pairs(areas) do
+		for _, name in pairs(names) do
 			
 			local entities = game.surfaces[1].find_entities_filtered{ name = name, area = area }
 
@@ -226,7 +226,8 @@ local function homeless_scan()
 			end
 		end
 	end
-	::continue::
+	
+::continue::
 end
 
 
