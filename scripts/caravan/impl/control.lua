@@ -8,6 +8,10 @@ local P = {}
 ---@param entity LuaEntity
 function P.goto_entity(caravan_data, entity)
     local caravan = caravan_data.entity
+	
+	-- wake up!  now!
+	CaravanFuncs.wake_up( caravan.unit_number ) 
+	
     caravan.commandable.set_command {
         type = defines.command.go_to_location,
         destination_entity = entity,
@@ -22,6 +26,10 @@ end
 ---@param position MapPosition
 function P.goto_position(caravan_data, position)
     local caravan = caravan_data.entity
+	
+	-- wake up!  now!
+	CaravanFuncs.wake_up( caravan.unit_number ) 
+	
     caravan.commandable.set_command {
         type = defines.command.go_to_location,
         destination = position,
