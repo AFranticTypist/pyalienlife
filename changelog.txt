@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 3.0.63
-Date: ????
+Date: 2026-03-28
   Changes:
     - Clarified the descriptions for the fastwood forestry TURD path 2 and 3
     - Fixed arqad queen production statistics issues
