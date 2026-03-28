@@ -365,7 +365,7 @@ py.register_on_nth_tick(60, "update-caravans", "pyal", function()
 				storage.caravan_activities[ caravan_data.unit_number ] = 0
 			end		
 			
-			check_for_stall(caravan_data)
+			CaravanFuncs.check_for_stall(caravan_data)
 		
 			-- hungry caravans are always in the fast queue.
 			local entity = caravan_data.entity
@@ -550,7 +550,7 @@ function CaravanFuncs.wake_up( unit_number )
 end
 
 
-local function check_for_stall(caravan_data) 
+function CaravanFuncs.check_for_stall(caravan_data) 
 
 	-- Under some circumstances caravans can become stuck in wander mode
 	-- why?  don't know.  But the solution is to tell them to get back to work.
