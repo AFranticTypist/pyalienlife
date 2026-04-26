@@ -10,6 +10,8 @@ Date: ???
       - Requestor tanks now pick the closest bioport as their 'preferred source' of critters, then the system attracts critters to that port.
       - Improved the Bioport GUI to show incoming/outgoing diagnostics.
       - Implemented a variety of optimizations to increase the performance of the biofluid network at all levels.
+    - Fixed failure migrating certain fluid caravan interrupts
+    - Fixed pipette food selection on caravan food slots having incorrect priority
 ---------------------------------------------------------------------------------------------------
 Version: 3.0.63
 Date: 2026-03-28
@@ -30,6 +32,8 @@ Date: 2026-03-28
     - Added "fill until" and "empty until" fluid caravan actions (thanks, charleycrissman!)
     - Improved wyrmhole performance when scaling. Resolves https://github.com/pyanodon/pybugreports/issues/1404
     - Fixed poor recipe icon placement for smart farms. Resolves https://github.com/pyanodon/pybugreports/issues/1387
+    - Fixed rendering icons being inconsistent. Resolves https://github.com/pyanodon/pybugreports/issues/1080
+    - Updated specialized rendering icons to reflect normal rendering icon
 ---------------------------------------------------------------------------------------------------
 Version: 3.0.62
 Date: 2026-01-05
