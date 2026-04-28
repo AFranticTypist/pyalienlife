@@ -232,12 +232,7 @@ function P.wait(caravan_data, schedule, action)
 	
 	if current_tick and caravan_data.last_run_tick and (current_tick > caravan_data.last_run_tick) then
 		decrement = (current_tick - caravan_data.last_run_tick) / 60
-		
-		if (decrement - math.floor(decrement) > .5) then
-			decrement = math.ceil(decrement)
-		else 
-			decrement = math.floor(decrement)
-		end
+		decrement = math.floor(decrement + 0.5)
 	end
 
     if not action.timer or action.timer <= 1 then
