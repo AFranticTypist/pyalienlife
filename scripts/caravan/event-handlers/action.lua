@@ -105,7 +105,7 @@ gui_events[defines.events.on_gui_click]["py_caravan_action_play_stop_button"] = 
     local caravan_data = storage.caravans[tags.unit_number]
     local schedule = caravan_data.schedule[tags.schedule_id]
 
-	CaravanFuncs.wake_up( tags.unit_number ) 
+	CaravanImpl.wake_up( tags.unit_number ) 
 
     if caravan_data.schedule_id == tags.schedule_id then
         if caravan_data.action_id == tags.action_id then
