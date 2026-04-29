@@ -3,8 +3,6 @@ local CaravanGui = require "__pyalienlife__/scripts/caravan/gui"
 local EditInterruptGui = require "__pyalienlife__/scripts/caravan/gui/edit_interrupt"
 local Utils = require "__pyalienlife__/scripts/caravan/utils"
 
-CaravanFuncs = {}
-
 local caravan_prototypes = require "__pyalienlife__/scripts/caravan/caravan-prototypes"
 
 py.on_event(py.events.on_built(), function(event)
@@ -365,8 +363,10 @@ py.register_on_nth_tick(60, "update-caravans", "pyal", function()
 				storage.caravan_activities[ caravan_data.unit_number ] = 0
 			end		
 			
-			CaravanFuncs.check_for_stall(caravan_data)
-		
+			if CaravanImpl.check_for_stall(caravan_data) then
+				CaravanImpl.begin_action(caravan_data, action_id)
+			end
+	
 			-- hungry caravans are always in the fast queue.
 			local entity = caravan_data.entity
 			local needs_fuel = caravan_data.fuel_inventory and caravan_data.fuel_bar == 0 and caravan_data.fuel_inventory.is_empty()
@@ -529,49 +529,6 @@ py.register_on_nth_tick(60, "update-caravans", "pyal", function()
 		end
 	end
 end)
-
-
--- gets called in the GUI button functions to boot caravans out of the slow queue
--- the exclaimation point is implied
-function CaravanFuncs.wake_up( unit_number ) 
-	
-	-- wake up!  if it happens to be in deep sleep
-	if storage.caravans[unit_number].entity ~= nil then
-		storage.caravans[unit_number].entity.active = true
-		storage.caravan_activities[unit_number] = 0
-		
-		if storage.caravan_slow_queue ~= nil then
-			storage.caravan_slow_queue[unit_number] = nil
-		end
-		if storage.caravan_fast_queue ~= nil then
-			storage.caravan_fast_queue[unit_number] = storage.caravans[unit_number]
-		end
-	end
-end
-
-
-function CaravanFuncs.check_for_stall(caravan_data) 
-
-	-- Under some circumstances caravans can become stuck in wander mode
-	-- why?  don't know.  But the solution is to tell them to get back to work.
-	if not (caravan_data.entity and caravan_data.entity.valid and caravan_data.entity.commandable) then return end
-
-	local cmd = caravan_data.entity.commandable.command		
-		
-	if not (cmd and cmd.type == defines.command.wander) then return end
-
-	if caravan_data.schedule_id <= -1 then return end
-		
-	local schedule = caravan_data.schedule[caravan_data.schedule_id]
-		
-	-- some caravans perma-wander because their next destination has been removed.  no hope for these guys.
-	if not (schedule and schedule.entity and schedule.entity.valid and schedule.entity.surface == caravan_data.entity.surface) then return end
-	
-	local action_id = caravan_data.action_id
-	if action_id < 0 then action_id = 1 end				
-	CaravanImpl.begin_action(caravan_data, action_id)
-
-end
 
 
 remote.add_interface("caravans", {
