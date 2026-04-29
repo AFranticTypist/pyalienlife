@@ -7,7 +7,7 @@ Date: ???
       - Loosened the definition of 'fully supplied provider tank' from 100% full to 80% full.  This is more in-line with the fluid system's performance.
       - Bioports can now deploy more than one critter per biofluid cycle.  This greatly increases effiency in busy networks.
       - Permenently fixed the Biofluid Creature Homelessness Crisis.  Praise the Factory!
-      - Requestor tanks now pick the closest bioport as their 'preferred source' of critters, then the system attracts critters to that port.
+      - Provider tanks now pick the closest bioport as their 'preferred source' of critters, then the system attracts critters to that port.
       - Improved the Bioport GUI to show incoming/outgoing diagnostics.
       - Implemented a variety of optimizations to increase the performance of the biofluid network at all levels.
     - Fixed failure migrating certain fluid caravan interrupts
