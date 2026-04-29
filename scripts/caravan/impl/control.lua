@@ -8,10 +8,6 @@ local P = {}
 ---@param entity LuaEntity
 function P.goto_entity(caravan_data, entity)
     local caravan = caravan_data.entity
-	
-	-- wake up!  now!
-	P.wake_up( caravan.unit_number ) 
-	
     caravan.commandable.set_command {
         type = defines.command.go_to_location,
         destination_entity = entity,
@@ -26,10 +22,6 @@ end
 ---@param position MapPosition
 function P.goto_position(caravan_data, position)
     local caravan = caravan_data.entity
-	
-	-- wake up!  now!
-	P.wake_up( caravan.unit_number ) 
-	
     caravan.commandable.set_command {
         type = defines.command.go_to_location,
         destination = position,
@@ -177,56 +169,5 @@ function P.select_destination(player, last_opened, camera_position)
     end
     storage.last_opened[player.index] = last_opened
 end
-
--- gets called in the GUI button functions to boot caravans out of the slow queue
--- the exclaimation point is implied
-function P.wake_up( unit_number ) 
-
-	-- wake up!  if it happens to be in deep sleep
-	if storage.caravans[unit_number].entity ~= nil then
-		storage.caravans[unit_number].entity.active = true
-		storage.caravan_activities[unit_number] = 0
-		
-		if storage.caravan_slow_queue ~= nil then
-			storage.caravan_slow_queue[unit_number] = nil
-		end
-		if storage.caravan_fast_queue ~= nil then
-			storage.caravan_fast_queue[unit_number] = storage.caravans[unit_number]
-		end
-	end
-end
-
-
-function P.check_for_stall(caravan_data) 
-	
-	-- Under some circumstances caravans can become stuck in wander mode
-	-- why?  don't know.  But the solution is to tell them to get back to work.
-	if not (caravan_data.entity and caravan_data.entity.valid and caravan_data.entity.commandable) then 
-		return false 
-	end
-
-	local cmd = caravan_data.entity.commandable.command		
-	
-	if not (cmd and cmd.type == defines.command.wander) then 
-		return false 
-	end
-
-	if caravan_data.schedule_id <= -1 then 
-		return false 
-	end
-		
-	local schedule = caravan_data.schedule[caravan_data.schedule_id]
-		
-	-- some caravans perma-wander because their next destination has been removed.  no hope for these guys.
-	if not (schedule and schedule.entity and schedule.entity.valid and schedule.entity.surface == caravan_data.entity.surface) then 
-		return false 
-	end
-	
-	local action_id = caravan_data.action_id
-	if action_id < 0 then action_id = 1 end
-	
-	return true
-end
-
 
 return P

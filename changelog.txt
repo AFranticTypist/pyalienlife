@@ -10,8 +10,6 @@ Date: ???
       - Provider tanks now pick the closest bioport as their 'preferred source' of critters, then the system attracts critters to that port.
       - Improved the Bioport GUI to show incoming/outgoing diagnostics.
       - Implemented a variety of optimizations to increase the performance of the biofluid network at all levels.
-    - Caravan speed optimizations.  Idle caravans are now processed less often, leading to substantial performance improvements in large bases.
-    - Minor Caravan schedule UI improvements.
     - Biofluid networks now support provider priority
     - Changes around the locations of alienlife items to be more sensical
     - Fixed failure migrating certain fluid caravan interrupts
@@ -36,7 +34,6 @@ Date: 2026-03-28
     - Added "fill until" and "empty until" fluid caravan actions (thanks, charleycrissman!)
     - Improved wyrmhole performance when scaling. Resolves https://github.com/pyanodon/pybugreports/issues/1404
     - Fixed poor recipe icon placement for smart farms. Resolves https://github.com/pyanodon/pybugreports/issues/1387
-    - Fixed Xeno TURD Sequential Hermaphroditsm creating cages from nothing.  Resolves https://github.com/pyanodon/pybugreports/issues/1426
     - Fixed rendering icons being inconsistent. Resolves https://github.com/pyanodon/pybugreports/issues/1080
     - Updated specialized rendering icons to reflect normal rendering icon
 ---------------------------------------------------------------------------------------------------
