@@ -534,7 +534,7 @@ local function process_unfulfilled_requests(unfulfilled_request, relavant_fluids
 	-- now we figure out where we're geting our biobot from.  Try the preferred bioport first.
 	if not storage.biofluid_preferred_bioports[requestor_unit_number] then
 		-- this requestor doesn't have a preferred bioport set yet.  Lets fix that.
-		storage.biofluid_preferred_bioports[requestor_unit_number] = find_closest_bioport(unfulfilled_request.entity, network_data.biofluid_bioports)
+		storage.biofluid_preferred_bioports[requestor_unit_number] = find_closest_bioport(provider, network_data.biofluid_bioports)
 	end
 
 	-- try the preferred bioport first, then fall back to ordered by distance.
