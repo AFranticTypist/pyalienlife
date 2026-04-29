@@ -226,11 +226,21 @@ function P.destroy_altmode_icon(caravan_data)
 end
 
 function P.wait(caravan_data, schedule, action)
+
+	local current_tick = game.tick
+	local decrement = 1
+	
+	if current_tick and caravan_data.last_run_tick and (current_tick > caravan_data.last_run_tick) then
+		decrement = (current_tick - caravan_data.last_run_tick) / 60
+		decrement = math.floor(decrement + 0.5)
+	end
+
     if not action.timer or action.timer <= 1 then
         action.timer = nil
         return true
     end
-    action.timer = action.timer - 1
+	
+    action.timer = action.timer - decrement
     return false
 end
 
@@ -810,7 +820,7 @@ Caravan.actions = {
     ["target-fluid-count"] = P.target_fluid_count,
     ["is-tank-full"] = P.is_tank_full,
     ["is-tank-empty"] = P.is_tank_empty,
-    ["fill-tank-until-caravan-has"] = P.fill_tank_until_caravan_contains,
+	["fill-tank-until-caravan-has"] = P.fill_tank_until_caravan_contains,
     ["fill-tank-until-target-has"] = P.fill_tank_until_outpost_contains,
     ["empty-tank-until-caravan-has"] = P.empty_tank_until_caravan_contains,
     ["empty-tank-until-target-has"] = P.empty_tank_until_outpost_contains,
